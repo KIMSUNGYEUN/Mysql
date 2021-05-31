@@ -1,1 +1,124 @@
+*MySQL 데이터 타입
 
+-MySQL 데이터 타입-1
+
+TINYINT(M) : 부호 있는 수는 -128~127까지, 부호 없는 수는 0~255까지 표현, 1바이트
+
+SMALLINT(M) : 부호 있는 수는 -32768~32767까지, 부호 없는 수는 0~65535까지 표현, 2바이트
+
+MEDIUMINT(M) : 부호 있는 수는 -8388608~8388607까지, 부호 없는 수는 0~16777215까지 표현, 3바이트
+
+INT(M) or INTGER(M) : 부호 있는 수는 -2147483648~2147483647까지, 부호 없는 수는 0~4294967295까지 표현, 4바이트
+
+BIGINT(M) : 부호 있는 수는 -92233720036854~92233720036854775808까지, 부호 없는 수는 0~18446744073709551615까지 표현
+
+FLOAT(M,D) : 부동 소수점을 나타낸다. 언제나 부호 있는 수임.
+
+DOUBLE(M,D) : 2배 정밀도를 가진 부동 소수점
+
+DATE : 날짜를 표현하는 타입, '9999-12-31', 3바이트
+
+DATETIME : 날짜와 시간을 같이 나타내는 타입, '9999-12-31 23:59:59', 8바이트
+
+TIMESTAMP : '1970-01-01 00:00:00' 부터 2037년까지 나타낼 수 있다. 4바이트
+
+-MySQL 데이터 타입-2
+
+TIME : 시간을 나타낸다. '-839:59:59'부터 '838:59:59'까지 나타낼 수 있다.
+
+YEAR : 년도를 나타낸다. 1901년 부터 2155년, 0000년을 나타낼 수 있다.
+
+CHAR(M) : 고정 길이를 갖는 문자열을 저장할 수 있다. M은 1부터 255까지 이다.
+
+VARCHAR(M) : CHAR는 고정 길이인 반면 VARCHAR는 가변 길이이다.
+
+TINYBLOB, TINYTEXT  : 255개의 문자를 저장할 수 있다.
+
+BLOB, TEXT : 63,535개의 문자를 저장할 수 있다.
+
+MEDIUMBLOB, MEDIUMTEXT : 16,777,215개의 문자를 저장할 수 있다.
+
+LONGBLOB, LONGTEXT : 4,294,967,295(4기가)개의 문자를 저장할 수 있다.
+
+
+테이블 생성
+
+create table 테이블명( 
+          필드명1 타입 [NULL | NOT NULL][DEFAULT ][AUTO_INCREMENT], 
+          필드명2 타입 [NULL | NOT NULL][DEFAULT ][AUTO_INCREMENT], 
+          필드명3 타입 [NULL | NOT NULL][DEFAULT ][AUTO_INCREMENT], 
+          ........... 
+          PRIMARY KEY(필드명) 
+          );
+데이터 형 외에도 속성값의 빈 값 허용 여부는 NULL 또는 NOT NULL로 설정
+DEFAULT 키워드와 함께 입력하지 않았을 때의 초기값을 지정
+입력하지 않고 자동으로 1씩 증가하는 번호를 위한 AUTO_INCREMENT
+
+테이블 수정 (컬럼 추가 / 삭제)
+
+alter table 테이블명
+          add  필드명 타입 [NULL | NOT NULL][DEFAULT ][AUTO_INCREMENT];
+
+alter table 테이블명
+         drop  필드명;
+ 
+
+테이블 수정 실습 (컬럼 추가)
+
+ex) EMPLOYEE2 테이블에 생일(birthdate)칼럼을 varchar(12)형식으로 추가하시오.
+
+alter table EMPLOYEE2
+
+add birthdate varchar(12);
+
+테이블 수정 실습 (컬럼 삭제)
+
+ex) EMPLOYEE2 테이블의 생일(birthdate)칼럼을 삭제하시오.
+
+alter table EMPLOYEE2
+
+drop birthdate;
+
+테이블 수정 (컬럼 수정)
+
+alter table  테이블명
+     change  필드명  새필드명 타입 [NULL | NOT NULL][DEFAULT ][AUTO_INCREMENT];
+change 키워드를 사용하고  칼럼을 새롭게 재정의 (이름부터 속성까지 전부)
+ 
+
+테이블 수정 실습 (컬럼 수정)
+
+ex) EMPLOYEE2 테이블의 부서번호(deptno)를 dept_no로 수정하시오.
+
+alter table EMPLOYEE2
+
+change deptno dept_no int(11);
+
+테이블 이름 변경
+
+alter table  테이블명 rename 변경이름
+ 
+
+테이블 이름 변경 실습
+
+ex) EMPLOYEE2 테이블의 이름을 EMPLOYEE3로 변경하시오.
+
+alter table EMPLOYEE2
+
+rename EMPLOYEE3;
+
+테이블 삭제하기
+
+drop table 테이블이름;
+참고로, 제약 조건이 있을 경우에는 drop table 명령으로도 테이블이 삭제되지 않을 수 있습니다.
+
+그럴 경우는 테이블을 생성한 반대 순서로 삭제를 해야합니다.
+
+
+테이블 삭제 실습
+
+* 테이블 삭제 후 desc 명령을 수행하면, 존재하지 않는 테이블이라고 표시됩니다.
+
+ex) EMPLOYEE2 테이블을 삭제하시오.
+
+drop table EMPLOYEE2;
